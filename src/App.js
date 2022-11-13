@@ -70,10 +70,11 @@ function App() {
       setModal(false) 
     }
 
-    const editNoteColor = (editedNote) =>{
+    const editNoteColor = (color, id) => {
+      setActiveNote(id)
       const editedNotes = notes.map(note => {
         if(note.id === activeNote){
-          return (editedNote)
+          return {...note, color}
         }
         return note
       })
@@ -98,6 +99,7 @@ function App() {
     })
     setFormOpen(false)
   }
+  
 
   return (
     <div className="App">
@@ -129,8 +131,8 @@ function App() {
           onClick={() => setFormOpen(!formOpen)}
         />
         {formOpen && <div className="form-buttons">
-          <button type="submit" className="submit-button">Save</button>
-          <button type="button" className="form-close-button" onClick={() => setFormOpen(false)}>Close</button>
+          <button type="submit" className="save-button">Save</button>
+          <button type="button" className="close-button" onClick={() => setFormOpen(false)}>Close</button>
         </div>}
       </form> 
       <div className="notes">
@@ -141,8 +143,6 @@ function App() {
             selectNote={selectNote}
             deleteNote={deleteNote} 
             editNoteColor={editNoteColor}
-            updateNote={updateNote}
-            activeNote={activeNote}
             setActiveNote={setActiveNote}
           />
         )}

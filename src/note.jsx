@@ -1,58 +1,57 @@
 import React, { useState, useEffect } from 'react'
+import { ReactComponent as EditIcon } from './assets/edit-2-fill.svg'
+import { ReactComponent as DeleteIcon } from "./assets/delete-icon.svg"
+import { ReactComponent as PaletteIcon } from "./assets/palette-icon.svg"
 
-export default function Note({note, activeNote, editNoteColor, selectNote, deleteNote}) {
+export default function Note({note, setActiveNote, editNoteColor, selectNote, deleteNote}) {
   const {id, title, body, color, lastModified} = note
   const [showTooltip, setShowTooltip] = useState(false)
   const [noteColor, setNoteColor] = useState("white")
-  const [editedNote, setEditedNote] = useState({
-    ...note,
-    color: "white"
-  })
+  
 
-  const handleShow = () => {
+  const handleShow = () => {  
+    setActiveNote(note.id)  
     setShowTooltip(true)
   }
   const closeTooltip = () => {
     setShowTooltip(false)
   }
-  //const editedNote = {...note, color: noteColor}
   
-  useEffect(() => {
-    const setColor = () => {
-      setEditedNote({...editedNote, color: noteColor})
-      if(noteColor !== "white") {
-        console.log(noteColor)
-        console.log(editedNote)
-        editNoteColor(editedNote)
-      }
-    }
-    setColor()
+  useEffect(() => {    
+    editNoteColor(noteColor)
     
   },[noteColor])
 
   
   const style ={
-    backgroundColor: noteColor ? noteColor : color
+    backgroundColor: noteColor !== "white" ? noteColor : color
   }
   
   return (
-    <div className='note' style={style}  onMouseOver={handleShow}
-    onMouseLeave={closeTooltip}>
+    <div className='note' style={style}  
+    >
       <h4 className='note-title'>{title}</h4>
       <div className='note-body'>{body && body.substr(0, 80) + "..."}</div>
       <small className='small'>{lastModified}</small>
       <div className='note-buttons'>
-        <button className='note-button' onClick={()=>deleteNote(id)}>delete</button>
-        <button className='note-button' onClick={()=>selectNote(id)}>edit</button> 
+        <button className='note-button' onClick={()=>deleteNote(id)}><DeleteIcon /></button>
+        <button className='note-button' onClick={()=>selectNote(id)}><EditIcon /></button> 
+        <button 
+          onMouseOver={handleShow}
+          onMouseLeave={closeTooltip}
+          className='note-button'
+        >
+         <PaletteIcon />
+        </button>
       </div>
-      {showTooltip && <div  className='toolbar-color'>
-        <div className="color-tooltip">
+      {/* {showTooltip && <div  className='toolbar-color'> */}
+        {showTooltip && <div className="color-tooltip" onMouseOver={handleShow} onMouseLeave={closeTooltip}>
           <div className="color-option white" color='#fff'  onClick={() => setNoteColor('#fff')}></div>
           <div className="color-option purple" color='#d7aefb' onClick={() => setNoteColor('#d7aefb')}></div>
-          <div className="color-option orange" color='#fbbc04' onClick={() => setNoteColor('#fbbc04')}></div>
-          <div className="color-option teal" color='#a7ffeb' onClick={() => setNoteColor('#a7ffeb')}></div>
-        </div>
-      </div>}
+          <div className="color-option orange" color='#fbd0d0' onClick={() => setNoteColor('#fbd0d0')}></div>
+          <div className="color-option teal" color='#d8f1f3' onClick={() => setNoteColor('#B2E2E6')}></div>
+        </div>}
+     
     </div>
   )
 }

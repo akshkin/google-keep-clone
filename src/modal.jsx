@@ -13,7 +13,7 @@ export default function Modal({activeNote, setModal, updateNote}) {
 
   const handleChange = event => {
     const {name, value} = event.target
-    setModalForm({...modalForm, [name] : value, lastModified: new Date().toLocaleString()})    
+    setModalForm(prevForm => ({...prevForm, [name] : value, lastModified: new Date().toLocaleString()}))    
   }
  
 
@@ -45,12 +45,14 @@ export default function Modal({activeNote, setModal, updateNote}) {
           onChange={handleChange}
           className="modal-body"          
         />
-        <button className='modal-close-button' type="button" onClick={() => setModal(false)}>
-          Close
-        </button>
-        <button className='modal-btn' onClick={handleSubmit}>
-          Edit
-        </button>
+        <div className='modal-buttons'>
+          <button className='save-button' onClick={handleSubmit}>
+            Save
+          </button>
+          <button className='close-button' type="button" onClick={() => setModal(false)}>
+            Close
+          </button>
+        </div>
       </form>
 </div>
   )
