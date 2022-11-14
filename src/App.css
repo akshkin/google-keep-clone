@@ -86,6 +86,10 @@ button{
   padding: 4px 16px 12px 0px;
 }
 
+.empty-text{
+  color:#2d3337;  
+  border: 2px solid blue;
+}
 
 .form-container {
   border-radius: 8px;
@@ -183,7 +187,6 @@ input:focus {
   background-color: #fff;
   border-color: #e0e0e0;
   border: 1px solid #d3d3d3;
-  /* overflow: hidden; */
   position: relative;
   border-radius: 8px;
   transition-duration: 0.218s;

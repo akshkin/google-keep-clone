@@ -18,8 +18,7 @@ export default function Note({note, setActiveNote, editNoteColor, selectNote, de
   }
   
   useEffect(() => {    
-    editNoteColor(noteColor)
-    
+    editNoteColor(noteColor)    
   },[noteColor])
 
   
@@ -44,13 +43,15 @@ export default function Note({note, setActiveNote, editNoteColor, selectNote, de
          <PaletteIcon />
         </button>
       </div>
-      {/* {showTooltip && <div  className='toolbar-color'> */}
-        {showTooltip && <div className="color-tooltip" onMouseOver={handleShow} onMouseLeave={closeTooltip}>
-          <div className="color-option white" color='#fff'  onClick={() => setNoteColor('#fff')}></div>
-          <div className="color-option purple" color='#d7aefb' onClick={() => setNoteColor('#d7aefb')}></div>
-          <div className="color-option orange" color='#fbd0d0' onClick={() => setNoteColor('#fbd0d0')}></div>
-          <div className="color-option teal" color='#d8f1f3' onClick={() => setNoteColor('#B2E2E6')}></div>
-        </div>}
+      {
+        showTooltip && 
+          <div className="color-tooltip" onMouseOver={handleShow} onMouseLeave={closeTooltip}>
+            <div className="color-option white" color='#fff'  onClick={() => setNoteColor('#fff')}></div>
+            <div className="color-option purple" color='#d7aefb' onClick={() => setNoteColor('#d7aefb')}></div>
+            <div className="color-option orange" color='#fbd0d0' onClick={() => setNoteColor('#fbd0d0')}></div>
+            <div className="color-option teal" color='#d8f1f3' onClick={() => setNoteColor('#B2E2E6')}></div>
+          </div>
+      }
      
     </div>
   )

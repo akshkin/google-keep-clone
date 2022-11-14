@@ -52,7 +52,6 @@ function App() {
 
   const selectNote = (id) =>{
     setActiveNote(id)
-    console.log(activeNote)
     setModal(true)    
   }
 
@@ -70,18 +69,18 @@ function App() {
       setModal(false) 
     }
 
-    const editNoteColor = (color, id) => {
-      setActiveNote(id)
-      const editedNotes = notes.map(note => {
-        if(note.id === activeNote){
-          return {...note, color}
-        }
-        return note
-      })
-      setNotes(editedNotes)
-      saveNotesToLocalStorage(editedNotes)
-    }
-    console.log(notes)
+  const editNoteColor = (color, id) => {
+    setActiveNote(id)
+    const editedNotes = notes.map(note => {
+      if(note.id === activeNote){
+        return {...note, color}
+      }
+      return note
+    })
+    setNotes(editedNotes)
+    saveNotesToLocalStorage(editedNotes)
+  }
+   
     
   const handleChange = event => {
     const {name, value} = event.target
@@ -100,28 +99,30 @@ function App() {
     setFormOpen(false)
   }
   
-
+  
   return (
     <div className="App">
       {
-          modal && 
-            <Modal 
-              activeNote={getActiveNote()}
-              setModal={setModal}
-              updateNote={updateNote}
-              setActiveNote={setActiveNote}
-            />
-        } 
+        modal && 
+          <Modal 
+            activeNote={getActiveNote()}
+            setModal={setModal}
+            updateNote={updateNote}
+            setActiveNote={setActiveNote}
+          />
+      } 
       <Header />  
       <form className="form-container" onSubmit={handleSubmit}>
-        {formOpen && <input 
+        {
+          formOpen && <input 
           className="form-title"
           type="text" 
           name="title" 
           value={title}
           placeholder="Title"
           onChange={handleChange}          
-        />}
+          />
+        }
         <input 
           className="form-body"
           name="body" 
@@ -130,22 +131,30 @@ function App() {
           onChange={handleChange}
           onClick={() => setFormOpen(!formOpen)}
         />
-        {formOpen && <div className="form-buttons">
-          <button type="submit" className="save-button">Save</button>
-          <button type="button" className="close-button" onClick={() => setFormOpen(false)}>Close</button>
-        </div>}
+        {
+          formOpen &&
+            <div className="form-buttons">
+              <button type="submit" className="save-button">Save</button>
+              <button type="button" className="close-button" onClick={() => setFormOpen(false)}>Close</button>
+            </div>
+        }
       </form> 
       <div className="notes">
-        {notes && notes.map(note => 
-          <Note 
-            key={note.id} 
-            note={note}
-            selectNote={selectNote}
-            deleteNote={deleteNote} 
-            editNoteColor={editNoteColor}
-            setActiveNote={setActiveNote}
-          />
-        )}
+        {
+          notes ? 
+            (notes.map(note => 
+              <Note 
+                key={note.id} 
+                note={note}
+                selectNote={selectNote}
+                deleteNote={deleteNote} 
+                editNoteColor={editNoteColor}
+                setActiveNote={setActiveNote}
+              />
+            )) : (
+              <h3 className="empty-text">Notes you add appear here</h3>
+            )
+        }
       </div>   
        
     </div>
