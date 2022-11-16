@@ -99,7 +99,7 @@ function App() {
     setFormOpen(false)
   }
   
-  
+  console.log(notes)
   return (
     <div className="App">
       {
@@ -129,7 +129,8 @@ function App() {
           value={body}
           placeholder="Take a note" 
           onChange={handleChange}
-          onClick={() => setFormOpen(!formOpen)}
+          autoComplete="off"
+          onClick={() => setFormOpen(prevFormOpen => !prevFormOpen)}
         />
         {
           formOpen &&
@@ -139,9 +140,11 @@ function App() {
             </div>
         }
       </form> 
+     
+      
       <div className="notes">
         {
-          notes ? 
+          notes.length ?
             (notes.map(note => 
               <Note 
                 key={note.id} 
@@ -151,10 +154,9 @@ function App() {
                 editNoteColor={editNoteColor}
                 setActiveNote={setActiveNote}
               />
-            )) : (
-              <h3 className="empty-text">Notes you add appear here</h3>
-            )
-        }
+            )) : (<h3 className="empty-text">Notes you add appear here</h3>)
+        }          
+        
       </div>   
        
     </div>

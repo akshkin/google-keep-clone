@@ -87,8 +87,7 @@ button{
 }
 
 .empty-text{
-  color:#2d3337;  
-  border: 2px solid blue;
+  color:#a6abae;  
 }
 
 .form-container {
@@ -267,6 +266,7 @@ input:focus {
   height: 25px;
   border-radius: 50%;
   border: 1px solid #dedede;
+  cursor: pointer;
 }
 
 .color-option:hover {
